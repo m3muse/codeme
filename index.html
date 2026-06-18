@@ -18,6 +18,7 @@
     --card: rgba(255,255,255,0.04);
     --radius: 16px;
     --font: -apple-system, 'PingFang SC', 'Malgun Gothic', 'Microsoft YaHei', sans-serif;
+    font-size: 16px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,7 +28,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font);
-    font-size: 18px;
+    font-size: 1rem;
     line-height: 1.8;
   }
 
@@ -55,7 +56,7 @@
   }
 
   .logo {
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 800;
     background: var(--accent-grad);
     -webkit-background-clip: text;
@@ -69,7 +70,7 @@
   nav a {
     color: var(--text2);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 0.875rem;
     padding: 6px 12px;
     border-radius: 8px;
     transition: color .2s, background .2s;
@@ -91,7 +92,7 @@
     background: none;
     border: none;
     color: var(--text2);
-    font-size: 13px;
+    font-size: 0.8rem;
     font-weight: 600;
     padding: 4px 12px;
     border-radius: 16px;
@@ -101,6 +102,38 @@
   }
 
   .lang-btn button.active {
+    background: var(--accent-grad);
+    color: #fff;
+  }
+
+  /* ── FONT SIZE CTRL ── */
+  .font-size-ctrl {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    margin-bottom: 24px;
+    font-size: 0.75rem;
+    color: var(--text2);
+  }
+
+  .font-size-ctrl button {
+    background: none;
+    border: none;
+    color: var(--text2);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: var(--font);
+  }
+
+  .font-size-ctrl button.active {
     background: var(--accent-grad);
     color: #fff;
   }
@@ -143,7 +176,7 @@
     background: rgba(0,212,170,.12);
     border: 1px solid rgba(0,212,170,.3);
     color: var(--accent);
-    font-size: 13px;
+    font-size: 0.8rem;
     font-weight: 600;
     padding: 6px 16px;
     border-radius: 20px;
@@ -171,7 +204,7 @@
   }
 
   .hero-desc {
-    font-size: 15px;
+    font-size: 0.94rem;
     color: var(--text2);
     margin-bottom: 48px;
     line-height: 1.8;
@@ -189,7 +222,7 @@
     background: var(--bg2);
     border: 1px solid var(--border);
     color: var(--text);
-    font-size: 13px;
+    font-size: 0.8rem;
     font-weight: 600;
     padding: 6px 14px;
     border-radius: 8px;
@@ -204,7 +237,7 @@
     border: none;
     padding: 14px 32px;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
@@ -221,7 +254,7 @@
     border: 1px solid var(--border);
     padding: 14px 32px;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
@@ -238,7 +271,7 @@
   .section-inner { max-width: 1100px; margin: 0 auto; }
 
   .section-label {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -255,7 +288,7 @@
   }
 
   .section-desc {
-    font-size: 17px;
+    font-size: 1.06rem;
     color: var(--text2);
     max-width: 560px;
     line-height: 1.7;
@@ -340,7 +373,7 @@
   }
 
   .course-title {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 8px;
     font-family: 'Courier New', monospace;
@@ -348,17 +381,17 @@
   }
 
   .course-sub {
-    font-size: 13px;
+    font-size: 0.8rem;
     color: var(--text2);
     margin-bottom: 12px;
     font-weight: 600;
   }
 
-  .course-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+  .course-desc { font-size: 0.875rem; color: var(--text2); line-height: 1.6; }
 
   .level-badge {
     display: inline-block;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     border-radius: 6px;
     padding: 2px 8px;
@@ -385,7 +418,7 @@
 
   .course-prereq {
     display: inline-block;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
     color: #f59e0b;
     background: rgba(245,158,11,.1);
@@ -434,9 +467,9 @@
     border: 2px solid var(--bg2);
   }
 
-  .tl-year { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 1px; margin-bottom: 4px; }
-  .tl-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-  .tl-desc { font-size: 13px; color: var(--text2); }
+  .tl-year { font-size: 0.75rem; font-weight: 700; color: var(--accent); letter-spacing: 1px; margin-bottom: 4px; }
+  .tl-title { font-size: 0.9375rem; font-weight: 700; margin-bottom: 2px; }
+  .tl-desc { font-size: 0.8125rem; color: var(--text2); }
 
   .about-highlights { display: flex; flex-direction: column; gap: 20px; }
 
@@ -451,14 +484,14 @@
   }
 
   .highlight-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
-  .highlight-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-  .highlight-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+  .highlight-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .highlight-desc { font-size: 0.875rem; color: var(--text2); line-height: 1.6; }
 
   /* ── PRICING ── */
   .pricing-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 
   .pricing-table th {
@@ -466,7 +499,7 @@
     border: 1px solid var(--border);
     padding: 14px 20px;
     text-align: center;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 700;
     color: var(--accent);
   }
@@ -484,16 +517,16 @@
   .pricing-table tr:nth-child(even) td { background: var(--bg2); }
   .pricing-table tr:hover td { background: rgba(0,212,170,.04); }
 
-  .pt-course { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
-  .pt-sub { font-size: 12px; color: var(--text2); }
+  .pt-course { font-weight: 700; font-size: 0.9375rem; margin-bottom: 3px; }
+  .pt-sub { font-size: 0.75rem; color: var(--text2); }
 
   .pt-price {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 800;
     color: var(--accent);
   }
 
-  .pt-price-group { font-size: 20px; font-weight: 700; color: var(--text); }
+  .pt-price-group { font-size: 1.25rem; font-weight: 700; color: var(--text); }
 
   .pricing-note {
     margin-top: 20px;
@@ -501,7 +534,7 @@
     border: 1px solid rgba(0,212,170,.2);
     border-radius: var(--radius);
     padding: 18px 24px;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text2);
     line-height: 1.8;
   }
@@ -510,9 +543,9 @@
   .pricing-note p:last-child { margin-bottom: 0; }
 
   @media (max-width: 600px) {
-    .pricing-table { font-size: 13px; }
+    .pricing-table { font-size: 0.8125rem; }
     .pricing-table th, .pricing-table td { padding: 10px 12px; }
-    .pt-price, .pt-price-group { font-size: 16px; }
+    .pt-price, .pt-price-group { font-size: 1rem; }
   }
 
   /* ── CURRICULUM ── */
@@ -538,12 +571,12 @@
   .track-dot.green { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
   .track-dot.purple { background: var(--accent2); box-shadow: 0 0 8px var(--accent2); }
 
-  .track-name { font-size: 18px; font-weight: 700; }
+  .track-name { font-size: 1.125rem; font-weight: 700; }
 
   .track-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
 
   .track-steps li {
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: var(--text2);
     display: flex;
     gap: 8px;
@@ -553,7 +586,7 @@
   .step-num {
     background: var(--bg2);
     color: var(--accent);
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     width: 20px; height: 20px;
     border-radius: 50%;
@@ -567,7 +600,7 @@
   .cs-path-row { display: flex; flex-direction: column; gap: 6px; }
 
   .cs-path-label {
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 700;
     color: var(--accent2);
   }
@@ -580,7 +613,7 @@
   }
 
   .cs-step {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text2);
     background: var(--bg2);
@@ -594,7 +627,7 @@
   }
 
   .cs-step-time {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 500;
     color: var(--accent);
     margin-top: 1px;
@@ -602,12 +635,12 @@
 
   .cs-arrow {
     color: var(--accent);
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
   }
 
   .cs-target {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
     background: var(--accent2);
@@ -623,7 +656,7 @@
   }
 
   .info-box-title {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 700;
     color: var(--accent);
     margin-bottom: 12px;
@@ -632,7 +665,7 @@
     gap: 8px;
   }
 
-  .info-box p, .info-box li { font-size: 14px; color: var(--text2); line-height: 1.7; }
+  .info-box p, .info-box li { font-size: 0.875rem; color: var(--text2); line-height: 1.7; }
   .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .info-box li::before { content: '→ '; color: var(--accent); font-weight: 700; }
 
@@ -646,11 +679,11 @@
     padding: 28px;
   }
 
-  .policy-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .policy-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .policy-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
 
   .policy-card li {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text2);
     line-height: 1.6;
     display: flex;
@@ -685,8 +718,8 @@
     flex-shrink: 0;
   }
 
-  .contact-label { font-size: 12px; color: var(--text2); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-  .contact-value { font-size: 16px; font-weight: 600; }
+  .contact-label { font-size: 0.75rem; color: var(--text2); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .contact-value { font-size: 1rem; font-weight: 600; }
 
   .qr-box {
     background: var(--bg2);
@@ -715,8 +748,8 @@
     object-fit: cover;
   }
 
-  .qr-label { font-size: 14px; color: var(--text2); margin-bottom: 4px; }
-  .qr-id { font-size: 20px; font-weight: 800; color: var(--accent); font-family: 'Courier New', monospace; }
+  .qr-label { font-size: 0.875rem; color: var(--text2); margin-bottom: 4px; }
+  .qr-id { font-size: 1.25rem; font-weight: 800; color: var(--accent); font-family: 'Courier New', monospace; }
 
   /* ── FOOTER ── */
   footer {
@@ -726,7 +759,7 @@
     text-align: center;
   }
 
-  footer p { font-size: 13px; color: var(--text2); line-height: 1.8; }
+  footer p { font-size: 0.8125rem; color: var(--text2); line-height: 1.8; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
@@ -766,11 +799,6 @@
         <button onclick="setLang('ko')" id="btn-ko" class="active">한국어</button>
         <button onclick="setLang('zh')" id="btn-zh">中文</button>
       </div>
-      <div class="lang-btn" style="margin-left:6px">
-        <button onclick="setFontSize('sm')" id="btn-sm">小</button>
-        <button onclick="setFontSize('md')" id="btn-md" class="active">中</button>
-        <button onclick="setFontSize('lg')" id="btn-lg">大</button>
-      </div>
     </nav>
   </div>
 </header>
@@ -778,6 +806,12 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
+    <div class="font-size-ctrl">
+      <span class="ko">글자 크기</span><span class="zh">字体大小</span>
+      <button onclick="setFontSize('sm')" id="btn-sm">小</button>
+      <button onclick="setFontSize('md')" id="btn-md" class="active">中</button>
+      <button onclick="setFontSize('lg')" id="btn-lg">大</button>
+    </div>
     <div class="hero-badge">
       <span class="ko">🏆 중국 유일의 코딩 레슨</span>
       <span class="zh">🏆 中国唯一的编程课</span>
@@ -1291,8 +1325,8 @@
 
 <script>
   function setFontSize(size) {
-    var sizes = { sm: '16px', md: '18px', lg: '21px' };
-    document.body.style.fontSize = sizes[size];
+    var sizes = { sm: '16px', md: '19px', lg: '23px' };
+    document.documentElement.style.fontSize = sizes[size];
     ['sm','md','lg'].forEach(function(s) {
       document.getElementById('btn-'+s).classList.toggle('active', s === size);
     });
