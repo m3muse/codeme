@@ -112,37 +112,20 @@
     bottom: 24px;
     right: 20px;
     z-index: 200;
-    display: flex;
-    align-items: center;
-    gap: 2px;
     background: var(--accent);
-    border-radius: 24px;
-    padding: 6px 8px;
-    box-shadow: 0 4px 20px rgba(0,212,170,.45), 0 2px 8px rgba(0,0,0,.4);
-  }
-
-  .font-size-float button {
-    background: none;
     border: none;
+    border-radius: 24px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 20px rgba(0,212,170,.45), 0 2px 8px rgba(0,0,0,.4);
     color: #003d30;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 800;
-    padding: 5px 11px;
-    border-radius: 18px;
     cursor: pointer;
-    transition: all .15s;
     font-family: var(--font);
-    line-height: 1;
+    transition: opacity .2s, transform .2s;
   }
 
-  .font-size-float button.active {
-    background: rgba(0,0,0,.18);
-    color: #fff;
-  }
-
-  .font-size-float button:not(.active):hover {
-    background: rgba(0,0,0,.1);
-  }
+  .font-size-float:hover { opacity: .85; transform: translateY(-2px); }
 
   /* ── HERO ── */
   .hero {
@@ -793,11 +776,10 @@
 <body data-lang="ko">
 
 <!-- FONT SIZE FLOAT -->
-<div class="font-size-float">
-  <button onclick="setFontSize('sm')" id="btn-sm">小</button>
-  <button onclick="setFontSize('md')" id="btn-md" class="active">中</button>
-  <button onclick="setFontSize('lg')" id="btn-lg">大</button>
-</div>
+<button class="font-size-float" id="btn-fontsize" onclick="toggleFontSize()">
+  <span id="fontsize-label-ko">글자 크게 🔠</span>
+  <span id="fontsize-label-zh" style="display:none">放大字体 🔠</span>
+</button>
 
 <!-- HEADER -->
 <header>
@@ -1331,17 +1313,19 @@
 </footer>
 
 <script>
-  function setFontSize(size) {
-    var sizes = { sm: '16px', md: '19px', lg: '23px' };
-    document.documentElement.style.fontSize = sizes[size];
-    ['sm','md','lg'].forEach(function(s) {
-      document.getElementById('btn-'+s).classList.toggle('active', s === size);
-    });
-    localStorage.setItem('fontSize', size);
+  var fontLarge = false;
+
+  function toggleFontSize() {
+    fontLarge = !fontLarge;
+    document.documentElement.style.fontSize = fontLarge ? '22px' : '16px';
+    var lang = document.body.getAttribute('data-lang') || 'ko';
+    document.getElementById('fontsize-label-ko').textContent = fontLarge ? '글자 작게 🔡' : '글자 크게 🔠';
+    document.getElementById('fontsize-label-zh').textContent = fontLarge ? '缩小字体 🔡' : '放大字体 🔠';
+    localStorage.setItem('fontLarge', fontLarge ? '1' : '0');
   }
+
   (function() {
-    var saved = localStorage.getItem('fontSize');
-    if (saved) setFontSize(saved);
+    if (localStorage.getItem('fontLarge') === '1') toggleFontSize();
   })();
 
   var yr = new Date().getFullYear();
@@ -1352,6 +1336,8 @@
     document.body.setAttribute('data-lang', lang);
     document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
     document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    document.getElementById('fontsize-label-ko').style.display = lang === 'ko' ? '' : 'none';
+    document.getElementById('fontsize-label-zh').style.display = lang === 'zh' ? '' : 'none';
     localStorage.setItem('lang', lang);
   }
   (function() {
