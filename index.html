@@ -766,6 +766,11 @@
         <button onclick="setLang('ko')" id="btn-ko" class="active">한국어</button>
         <button onclick="setLang('zh')" id="btn-zh">中文</button>
       </div>
+      <div class="lang-btn" style="margin-left:6px">
+        <button onclick="setFontSize('sm')" id="btn-sm">小</button>
+        <button onclick="setFontSize('md')" id="btn-md" class="active">中</button>
+        <button onclick="setFontSize('lg')" id="btn-lg">大</button>
+      </div>
     </nav>
   </div>
 </header>
@@ -1285,6 +1290,19 @@
 </footer>
 
 <script>
+  function setFontSize(size) {
+    var sizes = { sm: '16px', md: '18px', lg: '21px' };
+    document.body.style.fontSize = sizes[size];
+    ['sm','md','lg'].forEach(function(s) {
+      document.getElementById('btn-'+s).classList.toggle('active', s === size);
+    });
+    localStorage.setItem('fontSize', size);
+  }
+  (function() {
+    var saved = localStorage.getItem('fontSize');
+    if (saved) setFontSize(saved);
+  })();
+
   var yr = new Date().getFullYear();
   document.getElementById('footer-year').textContent = yr;
   document.getElementById('current-year').textContent = yr;
