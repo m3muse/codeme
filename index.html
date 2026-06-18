@@ -777,8 +777,8 @@
 
 <!-- FONT SIZE FLOAT -->
 <button class="font-size-float" id="btn-fontsize" onclick="toggleFontSize()">
-  <span id="fontsize-label-ko">글자 크게 🔠</span>
-  <span id="fontsize-label-zh" style="display:none">放大字体 🔠</span>
+  <span id="fontsize-label-ko">글자 크게</span>
+  <span id="fontsize-label-zh" style="display:none">放大字体</span>
 </button>
 
 <!-- HEADER -->
@@ -1316,8 +1316,8 @@
     fontLarge = !fontLarge;
     document.documentElement.style.fontSize = fontLarge ? '22px' : '16px';
     var lang = document.body.getAttribute('data-lang') || 'ko';
-    document.getElementById('fontsize-label-ko').textContent = fontLarge ? '글자 작게 🔡' : '글자 크게 🔠';
-    document.getElementById('fontsize-label-zh').textContent = fontLarge ? '缩小字体 🔡' : '放大字体 🔠';
+    document.getElementById('fontsize-label-ko').textContent = fontLarge ? '글자 작게' : '글자 크게';
+    document.getElementById('fontsize-label-zh').textContent = fontLarge ? '缩小字体' : '放大字体';
     localStorage.setItem('fontLarge', fontLarge ? '1' : '0');
   }
 
