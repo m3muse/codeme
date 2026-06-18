@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODE ME — 북경 코딩 레슨</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1f2937;
+    --accent: #00d4aa;
+    --accent2: #6366f1;
+    --accent-grad: linear-gradient(135deg, #00d4aa, #6366f1);
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --border: rgba(255,255,255,0.08);
+    --card: rgba(255,255,255,0.04);
+    --radius: 16px;
+    --font: -apple-system, 'PingFang SC', 'Malgun Gothic', 'Microsoft YaHei', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  body[data-lang="zh"] .ko { display: none; }
+  body[data-lang="ko"] .zh { display: none; }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,17,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+
+  nav { display: flex; align-items: center; gap: 8px; }
+
+  nav a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: color .2s, background .2s;
+  }
+
+  nav a:hover { color: var(--text); background: var(--card); }
+
+  .lang-btn {
+    margin-left: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 4px;
+    display: flex;
+    gap: 2px;
+  }
+
+  .lang-btn button {
+    background: none;
+    border: none;
+    color: var(--text2);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: var(--font);
+  }
+
+  .lang-btn button.active {
+    background: var(--accent-grad);
+    color: #fff;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(0,212,170,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(99,102,241,.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,212,170,.12);
+    border: 1px solid rgba(0,212,170,.3);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 10vw, 88px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(18px, 3vw, 24px);
+    color: var(--text2);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--text2);
+    margin-bottom: 48px;
+    line-height: 1.8;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+
+  .tag {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent-grad);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity .2s, transform .2s;
+    font-family: var(--font);
+  }
+
+  .btn-primary:hover { opacity: .85; transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background .2s, transform .2s;
+    font-family: var(--font);
+  }
+
+  .btn-outline:hover { background: var(--card); transform: translateY(-2px); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 24px; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 17px;
+    color: var(--text2);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+
+  .stats-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-item {
+    padding: 40px 32px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-size: 40px;
+    font-weight: 900;
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label { font-size: 13px; color: var(--text2); font-weight: 500; }
+
+  /* ── COURSES ── */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .course-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: border-color .2s, transform .2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .course-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent-grad);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .course-card:hover { border-color: rgba(0,212,170,.3); transform: translateY(-4px); }
+  .course-card:hover::before { opacity: 1; }
+
+  .course-icon {
+    width: 44px; height: 44px;
+    background: rgba(0,212,170,.1);
+    border: 1px solid rgba(0,212,170,.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .course-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+    color: var(--accent);
+  }
+
+  .course-sub {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .course-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+  .level-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-family: var(--font);
+    letter-spacing: 0;
+    color: #34d399;
+    background: rgba(52,211,153,.15);
+    border: 1px solid rgba(52,211,153,.4);
+  }
+
+  .level-badge.mid {
+    color: #fb923c;
+    background: rgba(251,146,60,.15);
+    border: 1px solid rgba(251,146,60,.4);
+  }
+
+  .level-badge.adv {
+    color: #a78bfa;
+    background: rgba(167,139,250,.15);
+    border: 1px solid rgba(167,139,250,.4);
+  }
+
+  .course-prereq {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #f59e0b;
+    background: rgba(245,158,11,.1);
+    border: 1px solid rgba(245,158,11,.3);
+    border-radius: 6px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+  }
+
+  /* ── ABOUT ── */
+  .about-bg { background: var(--bg2); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .timeline { list-style: none; position: relative; padding-left: 24px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    border-radius: 2px;
+  }
+
+  .timeline li {
+    position: relative;
+    margin-bottom: 28px;
+    padding-left: 20px;
+  }
+
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -28px; top: 8px;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid var(--bg2);
+  }
+
+  .tl-year { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 1px; margin-bottom: 4px; }
+  .tl-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+  .tl-desc { font-size: 13px; color: var(--text2); }
+
+  .about-highlights { display: flex; flex-direction: column; gap: 20px; }
+
+  .highlight-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .highlight-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+  .highlight-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .highlight-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+  /* ── PRICING ── */
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  .pricing-table th {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .pricing-table th:first-child { text-align: left; }
+
+  .pricing-table td {
+    border: 1px solid var(--border);
+    padding: 14px 20px;
+    vertical-align: top;
+  }
+
+  .pricing-table td:not(:first-child) { text-align: center; }
+
+  .pricing-table tr:nth-child(even) td { background: var(--bg2); }
+  .pricing-table tr:hover td { background: rgba(0,212,170,.04); }
+
+  .pt-course { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .pt-sub { font-size: 12px; color: var(--text2); }
+
+  .pt-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .pt-price-group { font-size: 20px; font-weight: 700; color: var(--text); }
+
+  .pricing-note {
+    margin-top: 20px;
+    background: rgba(0,212,170,.06);
+    border: 1px solid rgba(0,212,170,.2);
+    border-radius: var(--radius);
+    padding: 18px 24px;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.8;
+  }
+
+  .pricing-note p { margin-bottom: 4px; }
+  .pricing-note p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 600px) {
+    .pricing-table { font-size: 13px; }
+    .pricing-table th, .pricing-table td { padding: 10px 12px; }
+    .pt-price, .pt-price-group { font-size: 16px; }
+  }
+
+  /* ── CURRICULUM ── */
+  .curriculum-bg { background: var(--bg2); }
+
+  .track-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .track-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .track-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+
+  .track-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .track-dot.green { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .track-dot.purple { background: var(--accent2); box-shadow: 0 0 8px var(--accent2); }
+
+  .track-name { font-size: 18px; font-weight: 700; }
+
+  .track-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .track-steps li {
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .step-num {
+    background: var(--bg2);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Courier New', monospace;
+  }
+
+  .cs-path { display: flex; flex-direction: column; gap: 14px; }
+
+  .cs-path-row { display: flex; flex-direction: column; gap: 6px; }
+
+  .cs-path-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+
+  .cs-path-steps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .cs-step {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+  }
+
+  .cs-step-time {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 1px;
+  }
+
+  .cs-arrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .cs-target {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent2);
+    border-radius: 6px;
+    padding: 3px 10px;
+  }
+
+  .info-box {
+    background: rgba(0,212,170,.06);
+    border: 1px solid rgba(0,212,170,.2);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+  }
+
+  .info-box-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-box p, .info-box li { font-size: 14px; color: var(--text2); line-height: 1.7; }
+  .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .info-box li::before { content: '→ '; color: var(--accent); font-weight: 700; }
+
+  /* ── POLICY ── */
+  .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .policy-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .policy-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .policy-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+  .policy-card li {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.6;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .policy-card li::before { content: '·'; color: var(--accent); font-weight: 900; flex-shrink: 0; }
+
+  /* ── CONTACT ── */
+  .contact-bg {
+    background: linear-gradient(160deg, rgba(0,212,170,.05), rgba(99,102,241,.05));
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: rgba(0,212,170,.1);
+    border: 1px solid rgba(0,212,170,.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 12px; color: var(--text2); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .contact-value { font-size: 16px; font-weight: 600; }
+
+  .qr-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+  }
+
+  .qr-placeholder {
+    width: 160px; height: 160px;
+    background: var(--bg3);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    margin: 0 auto 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--text2);
+    line-height: 1.5; text-align: center;
+  }
+
+  .qr-img {
+    width: 160px; height: 160px;
+    border-radius: 12px;
+    margin: 0 auto 16px;
+    display: block;
+    object-fit: cover;
+  }
+
+  .qr-label { font-size: 14px; color: var(--text2); margin-bottom: 4px; }
+  .qr-id { font-size: 20px; font-weight: 800; color: var(--accent); font-family: 'Courier New', monospace; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  footer p { font-size: 13px; color: var(--text2); line-height: 1.8; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+    .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
+
+    nav a { display: none; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .track-grid { grid-template-columns: 1fr; }
+    .policy-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    section { padding: 64px 20px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-cta { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-outline { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body data-lang="ko">
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">CODE ME</div>
+    <nav>
+      <a href="#courses" class="ko">커리큘럼</a><a href="#courses" class="zh">课程</a>
+      <a href="#pricing" class="ko">수업료</a><a href="#pricing" class="zh">收费</a>
+      <a href="#contact" class="ko">연락처</a><a href="#contact" class="zh">联系</a>
+      <a href="#about" class="ko">선생님</a><a href="#about" class="zh">老师</a>
+      <div class="lang-btn">
+        <button onclick="setLang('ko')" id="btn-ko" class="active">한국어</button>
+        <button onclick="setLang('zh')" id="btn-zh">中文</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="ko">🏆 중국 유일의 코딩 레슨</span>
+      <span class="zh">🏆 中国唯一的编程课</span>
+    </div>
+    <h1>CODE ME</h1>
+    <p class="hero-sub">
+      <span class="ko">since 2020 · 북경 왕징 · 정유현 선생님</span>
+      <span class="zh">since 2020 · 北京 望京 · 郑有现 老师</span>
+    </p>
+    <p class="hero-desc">
+      <span class="ko">개발자 출신 선생님의 실전 코딩 교육.<br>Python부터 AI, AP · IGCSE · IB 등 시험 대비까지 한 곳에서.</span>
+      <span class="zh">由开发者出身的老师提供实战编程教育。<br>从Python到AI，AP · IGCSE · IB等考试备考，一站式搞定。</span>
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Python</span>
+      <span class="tag">WEB</span>
+      <span class="tag">SERVER</span>
+      <span class="tag">AI</span>
+      <span class="tag">JAVA</span>
+      <span class="tag">AP</span>
+      <span class="tag">IGCSE</span>
+      <span class="tag">IB</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">
+        <span class="ko">상담 문의 →</span>
+        <span class="zh">立即咨询 →</span>
+      </a>
+      <a href="#courses" class="btn-outline">
+        <span class="ko">커리큘럼 보기</span>
+        <span class="zh">查看课程</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-inner">
+    <p class="section-label">COURSES</p>
+    <h2 class="section-title">
+      <span class="ko">커리큘럼</span>
+      <span class="zh">课程</span>
+    </h2>
+    <p class="section-desc">
+      <span class="ko">기초부터, 실전 프로젝트, IGCSE · AP · IB 시험 대비까지.<br>수준과 목표에 맞게 선택하세요.</span>
+      <span class="zh">从基础入门、实战项目，到IGCSE · AP · IB考试备考。<br>根据水平和目标灵活选择。</span>
+    </p>
+    <div class="courses-grid">
+
+      <div class="course-card">
+        <div class="course-icon">🐍</div>
+        <div class="course-title">Python <span class="level-badge ko">초급</span><span class="level-badge zh">初级</span> <span class="level-badge mid ko">중급</span><span class="level-badge mid zh">中级</span></div>
+        <div class="course-sub ko">기초 ~ 응용</div>
+        <div class="course-sub zh">基础 ~ 进阶</div>
+        <div class="course-desc ko">전공·분야에 상관없이 Python은 이제 기본 소양입니다. 변수·조건문·반복문부터 함수·파일 처리·라이브러리 활용까지, 실제 프로젝트를 만들며 익힙니다.</div>
+        <div class="course-desc zh">无论什么专业和领域，Python已成为必备基础技能。从变量、条件判断、循环到函数、文件处理、库的使用，通过实际项目扎实掌握。</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">🌐</div>
+        <div class="course-title">WEB <span class="level-badge ko">초급</span><span class="level-badge zh">初级</span> <span class="level-badge mid ko">중급</span><span class="level-badge mid zh">中级</span></div>
+        <div class="course-sub ko">HTML / CSS / JavaScript</div>
+        <div class="course-sub zh">HTML / CSS / JavaScript</div>
+        <div class="course-desc ko">웹 페이지 구조(HTML), 디자인(CSS), 동적 기능(JS)을 배워 직접 사이트를 만들어 봅니다.</div>
+        <div class="course-desc zh">学习网页结构(HTML)、样式(CSS)、动态功能(JS)，亲手做出完整网站。</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">⚙️</div>
+        <div class="course-title">SERVER <span class="level-badge adv ko">고급</span><span class="level-badge adv zh">高级</span></div>
+        <div class="course-sub ko">백엔드 개발</div>
+        <div class="course-sub zh">后端开发</div>
+        <div class="course-prereq ko">⚠ WEB 과정 수료 필요</div>
+        <div class="course-prereq zh">⚠ 须完成WEB课程</div>
+        <div class="course-desc ko">이 과정까지 마친다면, 세상의 모든 프로그램·서비스·앱이 어떤 방식으로 동작하는지 완벽히 이해하게 됩니다. 서버·데이터베이스·API를 직접 만들며 배웁니다.</div>
+        <div class="course-desc zh">完成这门课程后，你将完全理解世界上所有程序、服务、App的运作原理。通过亲手搭建服务器、数据库、API来深入掌握。</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">🤖</div>
+        <div class="course-title">AI <span class="level-badge adv ko">고급</span><span class="level-badge adv zh">高级</span></div>
+        <div class="course-sub ko">Agent AI 활용</div>
+        <div class="course-sub zh">Agent AI 应用</div>
+        <div class="course-prereq ko">⚠ 백엔드 과정 수료 필요</div>
+        <div class="course-prereq zh">⚠ 须完成后端课程</div>
+        <div class="course-desc ko">머신러닝·딥러닝 강의가 아닙니다. 백엔드 개발 과정을 마친 학생에 한해, Claude 같은 Agent AI를 실제 서비스에 연동하고 활용하는 법을 가르칩니다.</div>
+        <div class="course-desc zh">本课不讲机器学习·深度学习。仅限完成后端开发课程的学生，教授如何将Claude等Agent AI集成到实际服务中并加以应用。</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">☕</div>
+        <div class="course-title">JAVA <span class="level-badge mid ko">중급</span><span class="level-badge mid zh">中级</span></div>
+        <div class="course-sub ko">객체지향 프로그래밍</div>
+        <div class="course-sub zh">面向对象编程</div>
+        <div class="course-desc ko">객체지향 핵심 개념(클래스·상속·인터페이스)을 Java로 탄탄하게 익힙니다.</div>
+        <div class="course-desc zh">用Java扎实掌握面向对象核心概念（类、继承、接口）。</div>
+        <div class="course-prereq ko" style="margin-top:10px">💡 JAVA 과정 = AP CSA 과정과 동일합니다</div>
+        <div class="course-prereq zh" style="margin-top:10px">💡 JAVA课程 = 与AP CSA课程内容相同</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">🎓</div>
+        <div class="course-title">AP CSA</div>
+        <div class="course-sub ko">AP Computer Science A 대비</div>
+        <div class="course-sub zh">AP计算机科学A 备考</div>
+        <div class="course-desc ko">미국 대학 학점 인정 AP 시험 대비. Java 기반 커리큘럼으로 5점을 목표로 합니다. 시간적 여유가 있다면 Python 과정을 수료하고 오는 것을 적극 권장합니다.</div>
+        <div class="course-desc zh">备考可获得美国大学学分的AP考试，基于Java课程冲刺满分5分。如时间允许，积极建议先完成Python课程再来报名。</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">📘</div>
+        <div class="course-title">IGCSE</div>
+        <div class="course-sub ko">Cambridge IGCSE Computer Science</div>
+        <div class="course-sub zh">Cambridge IGCSE 计算机科学</div>
+        <div class="course-desc ko">Cambridge IGCSE 시험 대비. 알고리즘·데이터 표현·프로그래밍 개념 전반을 다룹니다.</div>
+        <div class="course-desc zh">备考Cambridge IGCSE考试。涵盖算法、数据表示和编程概念全貌。</div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-icon">📗</div>
+        <div class="course-title">IB</div>
+        <div class="course-sub ko">IB Computer Science (DP)</div>
+        <div class="course-sub zh">IB Computer Science (DP)</div>
+        <div class="course-prereq ko">⚠ 백엔드 + JAVA 과정 수료 필요</div>
+        <div class="course-prereq zh">⚠ 须完成后端 + JAVA 课程</div>
+        <div class="course-desc ko">백엔드와 Java 과정까지 마친 학생만 지도합니다. 고난도 알고리즘과 IA 포트폴리오가 포함되어 있어, 이전 과정 없이는 수강이 불가능합니다.</div>
+        <div class="course-desc zh">仅指导已完成后端开发与Java课程的学生。涉及高难度算法和IA作品集，未完成前置课程不可报名。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <p class="section-label">PRICING</p>
+    <h2 class="section-title">
+      <span class="ko">수업료</span>
+      <span class="zh">课程收费</span>
+    </h2>
+    <p class="section-desc">
+      <span class="ko">50분 수업 1회 기준 · 元(위안) 단위</span>
+      <span class="zh">以50分钟/次为单位 · 人民币结算</span>
+    </p>
+
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th><span class="ko">커리큘럼</span><span class="zh">课程</span></th>
+          <th><span class="ko">소요 시간</span><span class="zh">所需时长</span></th>
+          <th><span class="ko">1:1 개인레슨</span><span class="zh">1对1私教</span></th>
+          <th><span class="ko">2인 이상 그룹</span><span class="zh">2人以上小组</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="pt-course ko">파이썬 문법 (초급)</div>
+            <div class="pt-course zh">Python语法（初级）</div>
+          </td>
+          <td><span class="pt-sub">~40h</span></td>
+          <td><span class="pt-price">330元</span></td>
+          <td><span class="pt-price-group">280元</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="pt-course ko">웹개발 기초 (초급)</div>
+            <div class="pt-course zh">Web开发基础（初级）</div>
+            <div class="pt-sub">HTML, CSS</div>
+          </td>
+          <td><span class="pt-sub">~25h</span></td>
+          <td><span class="pt-price">330元</span></td>
+          <td><span class="pt-price-group">280元</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="pt-course ko">파이썬 응용 (중급)</div>
+            <div class="pt-course zh">Python进阶（中级）</div>
+            <div class="pt-sub ko">알고리즘(중급), 크롤링, 매크로</div>
+            <div class="pt-sub zh">算法（中级）、爬虫、自动化</div>
+          </td>
+          <td><span class="pt-sub">~20h</span></td>
+          <td><span class="pt-price">380元</span></td>
+          <td><span class="pt-price-group">330元</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="pt-course">AP CSA (JAVA)</div>
+          </td>
+          <td><span class="pt-sub">~50h</span></td>
+          <td><span class="pt-price">380元</span></td>
+          <td><span class="pt-price-group">330元</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="pt-course ko">프론트엔드 (중급)</div>
+            <div class="pt-course zh">前端开发（中级）</div>
+            <div class="pt-sub">JavaScript</div>
+          </td>
+          <td><span class="pt-sub">~40h</span></td>
+          <td><span class="pt-price">380元</span></td>
+          <td><span class="pt-price-group">330元</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="pt-course ko">백엔드 (고급)</div>
+            <div class="pt-course zh">后端开发（高级）</div>
+            <div class="pt-sub ko">Node.js, 알고리즘(고급)</div>
+            <div class="pt-sub zh">Node.js、算法（高级）</div>
+          </td>
+          <td><span class="pt-sub">—</span></td>
+          <td><span class="pt-price">430元</span></td>
+          <td><span class="pt-price-group">380元</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="pt-course">IB Computer Science (DP)</div>
+          </td>
+          <td><span class="pt-sub">—</span></td>
+          <td><span class="pt-price">480元</span></td>
+          <td><span class="pt-price-group">430元</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pricing-note">
+      <p>✔ <span class="ko">2인 이상 그룹을 모아오시면 단체수업이 가능합니다.</span><span class="zh">2人以上自行组队即可享受小组课优惠。</span></p>
+      <p>✔ <span class="ko">위 레슨비는 세금미포함 가격입니다. 영수증 발급을 원하시면 5% 추가됩니다.</span><span class="zh">以上费用均为税前价格。如需开具发票，另加5%。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum" class="curriculum-bg">
+  <div class="section-inner">
+    <p class="section-label">CURRICULUM</p>
+    <h2 class="section-title">
+      <span class="ko">학습 로드맵</span>
+      <span class="zh">学习路线图</span>
+    </h2>
+    <p class="section-desc">
+      <span class="ko">처음 시작부터 실전 개발자 / 시험 합격까지 체계적인 경로.</span>
+      <span class="zh">从零基础到实战开发 / 高分通过考试的系统化路径。</span>
+    </p>
+    <div class="track-grid">
+      <div class="track-card">
+        <div class="track-header">
+          <div class="track-dot green"></div>
+          <div class="track-name ko">풀스택 개발 트랙</div>
+          <div class="track-name zh">全栈开发路线</div>
+        </div>
+        <ul class="track-steps">
+          <li><span class="step-num">1</span><span class="ko">Python 기초 — 프로그래밍 사고 훈련</span><span class="zh">Python基础 — 编程思维训练</span></li>
+          <li><span class="step-num">2</span><span class="ko">WEB 기초 — HTML / CSS / JS</span><span class="zh">WEB基础 — HTML / CSS / JS</span></li>
+          <li><span class="step-num">3</span><span class="ko">Python 응용 — 라이브러리, 데이터 처리</span><span class="zh">Python进阶 — 库应用、数据处理</span></li>
+          <li><span class="step-num">4</span><span class="ko">SERVER — 백엔드, DB, API</span><span class="zh">SERVER — 后端、DB、API</span></li>
+          <li><span class="step-num">5</span><span class="ko">AI — Agent AI 활용</span><span class="zh">AI — Agent AI 应用</span></li>
+        </ul>
+      </div>
+      <div class="track-card">
+        <div class="track-header">
+          <div class="track-dot purple"></div>
+          <div class="track-name ko">컴퓨터 사이언스 과정</div>
+          <div class="track-name zh">计算机科学课程</div>
+        </div>
+        <div class="cs-path">
+          <div class="cs-path-row">
+            <div class="cs-path-label">AP CSA (JAVA)</div>
+            <div class="cs-path-steps">
+              <span class="cs-step ko">파이썬 기초</span><span class="cs-step zh">Python基础</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step ko">파이썬 응용</span><span class="cs-step zh">Python进阶</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-target">AP CSA (JAVA)</span>
+            </div>
+          </div>
+          <div class="cs-path-row">
+            <div class="cs-path-label">IGCSE</div>
+            <div class="cs-path-steps">
+              <span class="cs-step ko">파이썬 기초</span><span class="cs-step zh">Python基础</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step ko">파이썬 응용</span><span class="cs-step zh">Python进阶</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step ko">웹 기초</span><span class="cs-step zh">Web基础</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-target">IGCSE</span>
+            </div>
+          </div>
+          <div class="cs-path-row">
+            <div class="cs-path-label">IB</div>
+            <div class="cs-path-steps">
+              <span class="cs-step ko">파이썬 기초</span><span class="cs-step zh">Python基础</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step ko">파이썬 응용</span><span class="cs-step zh">Python进阶</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step ko">웹 기초</span><span class="cs-step zh">Web基础</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step ko">백엔드</span><span class="cs-step zh">后端</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-step">JAVA</span>
+              <span class="cs-arrow">→</span>
+              <span class="cs-target">IB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:24px">
+      <div class="info-box-title">💡 <span class="ko">수업 전 무료 상담</span><span class="zh">上课前免费咨询</span></div>
+      <ul>
+        <li><span class="ko">현재 학년, 학교 커리큘럼, 목표를 알려주시면 맞춤 플랜을 제안해 드립니다.</span><span class="zh">告知年级、学校课程和目标，为您定制个性化学习方案。</span></li>
+        <li><span class="ko">첫 수업 전 30분 무료 레벨 테스트 진행.</span><span class="zh">第一节课前进行30分钟免费水平测试。</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- POLICY -->
+<section id="policy">
+  <div class="section-inner">
+    <p class="section-label">POLICY</p>
+    <h2 class="section-title">
+      <span class="ko">참고 사항</span>
+      <span class="zh">上课须知</span>
+    </h2>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div class="policy-card">
+        <h3>📋 <span class="ko">참고 사항</span><span class="zh">课程须知</span></h3>
+        <ul>
+          <li><span class="ko">본인 노트북을 가져오시는 걸 추천드립니다. (없어도 수업 가능)</span><span class="zh">建议自带笔记本电脑（没有也可以上课）。</span></li>
+          <li><span class="ko">노트북 사양은 윈도우10이 실행될 정도면 충분합니다. (맥북 가능)</span><span class="zh">笔记本能运行Windows 10即可（MacBook也可以）。</span></li>
+          <li><span class="ko">레슨은 주 2회 정도를 권장합니다. (주 1회도 괜찮습니다)</span><span class="zh">建议每周上课2次（每周1次也没问题）。</span></li>
+          <li><span class="ko">대면 수업 기본 / 온라인 협의 가능.</span><span class="zh">以线下为主 / 可协商线上授课。</span></li>
+          <li><span class="ko">당일 수업 취소는 수업을 진행한 것으로 처리됩니다. 변경이 필요할 경우 최소 하루 전에 연락 부탁드립니다.</span><span class="zh">当日取消视为已上课处理。如需变更，请至少提前一天联系。</span></li>
+          <li><span class="ko">사전 고지 없이 결석하실 경우 수업이 진행된 것으로 처리됩니다.</span><span class="zh">未提前告知的缺席视为已上课处理。</span></li>
+          <li><span class="ko">방학이나 휴가로 3주 이상 수업을 쉬게 될 경우, 해당 시간대가 다른 학생에게 제공될 수 있습니다. 수업 시간을 계속 유지하고 싶으시다면 반드시 미리 말씀해 주세요.</span><span class="zh">因假期等原因连续停课3周以上，该时间段可能开放给其他学生。如希望保留课位，请务必提前告知。</span></li>
+          <li><span class="ko">작업실에 강아지·고양이가 있습니다. 알레르기나 특이사항이 있으시면 미리 알려주세요.</span><span class="zh">工作室内有狗和猫，如有过敏或特殊情况请提前告知。</span></li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h3>💻 <span class="ko">컴퓨터 사이언스 관련</span><span class="zh">关于计算机科学课程</span></h3>
+        <ul>
+          <li><span class="ko">IGCSE, IB 과정에는 코딩 외에도 학교에서 배우는 암기 중심의 이론들이 많이 있습니다. 이런 이론들은 수업 중 일부 언급되기도 하지만, 별도의 이론 수업은 진행하지 않습니다. 학교 자료를 통해 학생 스스로 병행해서 공부해야 합니다.</span><span class="zh">IGCSE、IB课程中除编程外，还有大量需要记忆的理论内容。这些理论在课堂上可能会有所提及，但不进行专项理论教学。需要学生自行配合学校资料同步学习。</span></li>
+          <li><span class="ko">코딩은 제 수업에서 완벽하게 커버 가능합니다.</span><span class="zh">编程部分可在本课程中完全覆盖。</span></li>
+          <li><span class="ko">의사코드나 플로우차트는 가르치지 않지만, 스스로 코딩할 실력이 되는 수준이라면 전혀 문제가 되지 않습니다.</span><span class="zh">本课不讲伪代码或流程图，但只要达到能独立编程的水平，完全不成问题。</span></li>
+          <li><span class="ko">컴퓨터공학 전공을 목표로 하지 않는다면 IB CS HL은 추천하지 않습니다. 코딩보다 이론 비중이 높아, 수업에 관련된 부담이 상당히 높습니다.</span><span class="zh">如果不以计算机工程为专业目标，不建议选择IB CS HL。理论比重高于编程，课业负担相当重。</span></li>
+          <li><span class="ko">AP CSA는 JAVA를 디테일하게 공부해야 합니다. IGCSE·IB보다 알고리즘은 쉽게 나오지만 OOP(객체지향, 클래스, 상속) 같은 어려운 개념이 많아, 코딩 경험이 전혀 없는 학생에게는 다소 어렵습니다. 파이썬 기초 정도는 먼저 듣고 시작하는 것을 적극 권장합니다.</span><span class="zh">AP CSA需要深入学习JAVA。算法虽比IGCSE·IB简单，但OOP（面向对象、类、继承）等难点较多，对完全没有编程经验的学生有一定难度。强烈建议先学Python基础再开始AP CSA。</span></li>
+        </ul>
+      </div>
+
+      <div class="policy-card">
+        <h3>🧾 <span class="ko">결제 및 영수증</span><span class="zh">付款与发票</span></h3>
+        <ul>
+          <li><span class="ko">위챗페이 / 알리페이 가능.</span><span class="zh">支持微信支付 / 支付宝。</span></li>
+          <li><span class="ko">레슨비는 남은 수업 시간만큼 전액 환불해 드립니다.</span><span class="zh">剩余课时费用全额退还。</span></li>
+          <li><span class="ko">교육비 영수증이 필요하시면 발급해 드립니다.</span><span class="zh">如需教育费영수증，可为您开具。</span></li>
+          <li><span class="ko">레슨비는 세금 미포함 가격입니다. 레슨비의 5%를 추가하시면 普票·专票 모두 발급 가능합니다.</span><span class="zh">课程费用为税前价格。加收5%即可开具普票或专票。</span></li>
+          <li><span class="ko">教育辅助服务/培训费 외 다른 항목으로 발급을 원하시면 회사에서 가능한 범위 내에서 발급해 드립니다.</span><span class="zh">如需以教育辅助服务/培训费以外的项目开票，将在公司可开具的范围内为您处理。</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-bg">
+  <div class="section-inner">
+    <p class="section-label">CONTACT</p>
+    <h2 class="section-title">
+      <span class="ko">상담 문의</span>
+      <span class="zh">咨询联系</span>
+    </h2>
+    <p class="section-desc">
+      <span class="ko">위챗으로 연락 주시면 가장 빠릅니다.</span>
+      <span class="zh">微信联系最快捷。</span>
+    </p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-icon">💬</div>
+          <div>
+            <div class="contact-label">WeChat</div>
+            <div class="contact-value">m3muse</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">m3muse@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label ko">주소</div>
+            <div class="contact-label zh">地址</div>
+            <div class="contact-value ko">북경 왕징 기린사 3동 1107호<br><small style="font-size:13px;color:var(--text2)">(내고향마트 맞은편 건물)</small></div>
+            <div class="contact-value zh">北京 望京 麒麟社 3号楼 1107室<br><small style="font-size:13px;color:var(--text2)">（内故乡超市对面楼）</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-box">
+        <!-- QR 이미지 준비되면: <img src="qr_wechat.png" alt="WeChat QR" class="qr-img"> -->
+        <div class="qr-placeholder">
+          <span class="ko">위챗 QR 코드<br>준비 중</span>
+          <span class="zh">微信二维码<br>准备中</span>
+        </div>
+        <div class="qr-label ko">위챗으로 바로 추가</div>
+        <div class="qr-label zh">扫码直接添加微信</div>
+        <div class="qr-id">m3muse</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-bg">
+  <div class="section-inner">
+    <p class="section-label">ABOUT</p>
+    <h2 class="section-title">
+      <span class="ko">정유현 선생님</span>
+      <span class="zh">郑有现 老师</span>
+    </h2>
+    <p class="section-desc">
+      <span class="ko">음악과 코딩, 두 분야를 두루 거쳐온 독특한 이력.</span>
+      <span class="zh">横跨音乐与编程两个领域，拥有独特的人生经历。</span>
+    </p>
+    <div class="about-grid">
+      <ul class="timeline">
+        <li>
+          <div class="tl-year">2020 ~ <span id="current-year"></span></div>
+          <div class="tl-title">CODE ME <span class="ko">운영</span><span class="zh">创办运营</span></div>
+          <div class="tl-desc ko">북경 왕징 · 개발자 겸 코딩 강사</div>
+          <div class="tl-desc zh">北京望京 · 开发者兼编程讲师</div>
+        </li>
+        <li>
+          <div class="tl-year">2015 ~ 2020</div>
+          <div class="tl-title ko">天津澳丰供应链科技 개발자</div>
+          <div class="tl-title zh">天津澳丰供应链科技 开发工程师</div>
+          <div class="tl-desc ko">실무 개발 5년 경력</div>
+          <div class="tl-desc zh">5年实战开发经验</div>
+        </li>
+        <li>
+          <div class="tl-year">2010 ~ 2014</div>
+          <div class="tl-title ko">北京现代音乐研修学院 학과장</div>
+          <div class="tl-title zh">北京现代音乐研修学院 系主任</div>
+          <div class="tl-desc ko">교육 행정 및 강의</div>
+          <div class="tl-desc zh">教育管理与授课</div>
+        </li>
+        <li>
+          <div class="tl-year">2005 ~ 2009</div>
+          <div class="tl-title ko">北京演艺专修学院 교수</div>
+          <div class="tl-title zh">北京演艺专修学院 讲师</div>
+          <div class="tl-desc ko">음악 전공 강의</div>
+          <div class="tl-desc zh">音乐专业授课</div>
+        </li>
+        <li>
+          <div class="tl-year">~ 2004</div>
+          <div class="tl-title ko">부산대 컴퓨터공학 + 백제예술대 실용음악</div>
+          <div class="tl-title zh">釜山大学计算机工程 + 百济艺术大学实用音乐</div>
+          <div class="tl-desc ko">공학과 예술 두 가지 전공</div>
+          <div class="tl-desc zh">工程与艺术双专业背景</div>
+        </li>
+      </ul>
+      <div class="about-highlights">
+        <div class="highlight-card">
+          <div class="highlight-icon">🇨🇳</div>
+          <div>
+            <div class="highlight-title ko">중국 거주 20년+</div>
+            <div class="highlight-title zh">在华生活20年以上</div>
+            <div class="highlight-desc ko">중국어로 수업 가능. 현지 학교 커리큘럼(AP, IGCSE, IB) 완전 이해.</div>
+            <div class="highlight-desc zh">可用中文授课，完全了解本地学校课程体系（AP、IGCSE、IB）。</div>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">💻</div>
+          <div>
+            <div class="highlight-title ko">현직 개발자 출신</div>
+            <div class="highlight-title zh">来自一线开发者</div>
+            <div class="highlight-desc ko">이론만이 아닌 실제 서비스를 만든 경험. 실전 감각을 그대로 전달합니다.</div>
+            <div class="highlight-desc zh">不只是理论，而是真正做过产品的经验。将实战感觉直接传递给学生。</div>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🎯</div>
+          <div>
+            <div class="highlight-title ko">완전 1:1 맞춤 수업</div>
+            <div class="highlight-title zh">完全1对1个性化教学</div>
+            <div class="highlight-desc ko">학생 수준과 속도에 맞춘 커리큘럼. 이해할 때까지 반복합니다.</div>
+            <div class="highlight-desc zh">根据学生水平和进度定制课程。反复讲解直到真正理解为止。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© <span id="footer-year"></span> CODE ME · 정유현 · 北京 望京</p>
+  <p style="margin-top:8px">
+    <span class="ko">중국 유일의 코딩 레슨</span>
+    <span class="zh">中国唯一的编程课</span>
+  </p>
+</footer>
+
+<script>
+  var yr = new Date().getFullYear();
+  document.getElementById('footer-year').textContent = yr;
+  document.getElementById('current-year').textContent = yr;
+
+  function setLang(lang) {
+    document.body.setAttribute('data-lang', lang);
+    document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    localStorage.setItem('lang', lang);
+  }
+  (function() {
+    var saved = localStorage.getItem('lang');
+    if (saved) setLang(saved);
+  })();
+</script>
+</body>
+</html>
