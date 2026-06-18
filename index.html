@@ -422,6 +422,23 @@
   /* ── ABOUT ── */
   .about-bg { background: var(--bg2); }
 
+  .about-header {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 48px;
+  }
+  .about-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    border: 3px solid var(--accent);
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0,212,170,.3);
+  }
+
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1290,14 +1307,19 @@
 <section id="about" class="about-bg">
   <div class="section-inner">
     <p class="section-label">ABOUT</p>
-    <h2 class="section-title">
-      <span class="ko">정유현 선생님</span>
-      <span class="zh">郑有现 老师</span>
-    </h2>
-    <p class="section-desc">
-      <span class="ko">음악과 코딩, 두 분야를 두루 거쳐온 독특한 이력.</span>
-      <span class="zh">横跨音乐与编程两个领域，拥有独特的人生经历。</span>
-    </p>
+    <div class="about-header">
+      <img src="me2.png" alt="정유현 선생님" class="about-photo">
+      <div>
+        <h2 class="section-title" style="margin-bottom:8px">
+          <span class="ko">정유현 선생님</span>
+          <span class="zh">郑有现 老师</span>
+        </h2>
+        <p class="section-desc" style="margin:0">
+          <span class="ko">음악과 코딩, 두 분야를 두루 거쳐온 독특한 이력.</span>
+          <span class="zh">横跨音乐与编程两个领域，拥有独特的人生经历。</span>
+        </p>
+      </div>
+    </div>
     <div class="about-grid">
       <ul class="timeline">
         <li>
